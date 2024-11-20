@@ -1,38 +1,5 @@
 
 const baseUrl = "http://localhost:3002/"
-const signUpPage = "http://localhost:3002/sign-up"
-
-
-function adminA(){
-    document.getElementById("admin").addEventListener("submit", function (event) {
-        event.preventDefault(); // למנוע את שליחת הטופס המיידית
-
-        const email = document.getElementById("email").value;
-        const password = document.getElementById("password").value;
-
-        fetch("http://localhost:3002/login", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify({ email, password })
-        })
-        .then(response => response.json())
-        .then(data => {
-            if (data.success) {
-                // אם ההתחברות הצליחה, כוון את המשתמש לדף ההזמנות
-                window.location.href = "./all.html"; // דף כל ההזמנות
-            } else {
-                alert(data.message); // הצגת שגיאה אם ההתחברות נכשלה
-            }
-        })
-        .catch(error => {
-            console.error('Error:', error);
-        });
-    });
-}
-
-
 
 async function signIn(){
     const email = document.getElementById("email").value
@@ -70,7 +37,7 @@ async function signUp(){
     const password = document.getElementById("password").value
     const creadentials = {email , password, name}
 
-    const result = await fetch(signUpPage, {
+    const result = await fetch(baseUrl +"sign-up", {
         method: "post",
         headers: {'Content-type': 'application/json'},
         body: JSON.stringify(creadentials)
